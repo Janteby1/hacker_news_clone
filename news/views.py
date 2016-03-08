@@ -151,7 +151,7 @@ class Edit_Post(View):
 
     def post(self, request, post_slug=None):
         # get the slug id from the object
-        post = Post.objects.get(slug=post_slug)
+        post = Post.objects.get(slug=post_slug) # dont need this line 
         # this time we get the NEW, EDITED content from the form 
         form = PostForm(data=request.POST, instance=post)
 
@@ -170,7 +170,7 @@ class Edit_Post(View):
 class Delete_Post(View):
     # dont need a get just get the slug id and change the value for show
     def post(self, request, post_slug=None):
-        
+
         post = Post.objects.get(slug=post_slug)
         # dont delte it just make the show field false so it wont show on index page
         post.show = False

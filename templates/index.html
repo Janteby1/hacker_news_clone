@@ -20,20 +20,22 @@
     </div>
 
 
-<!--     {% for post in posts %}
+    {% for post in posts %}
         {% if post.show == True %}
 
         <div class="post">
             <a class="title" href="/news/edit/{{ post.slug }}"> <p class="title"> {{ post.title }} 
             </p> </a>
             {{ post.content|linebreaks }}
+<!--             slug -{{ post.slug }}  --> 
+           Link: {{ post.link }}
             <p class="author"> Author: {{ post.user }} </p>
         </div>
 
             <p class="date">Create: {{ post.created_at }}  -  Update: {{ post.updated_at }}</p>
         {% endif %}
     {% endfor %}
- -->
+
 {% endblock content %}
 
 

@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^logout$', views.User_Logout.as_view(), name='logout'),
 
     url(r'^create$', views.Create_Post.as_view(), name="create"),
-    # url(r'^edit/(?P<post_slug>[A-Za-z0-9\-\_]+)$', Edit_Post.as_view(), name="edit"),
-    # url(r'^delete/(?P<post_slug>[A-Za-z0-9\-\_]+)$', Delete_Post.as_view(), name='delete'),
+    # here we send the url to the views witht he slug id attached to it
+    url(r'^edit/(?P<post_slug>[A-Za-z0-9\-\_]+)$', views.Edit_Post.as_view(), name="edit"),
+    url(r'^delete/(?P<post_slug>[A-Za-z0-9\-\_]+)$', views.Delete_Post.as_view(), name='delete'),
 ]

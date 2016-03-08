@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h3>Edit Post:</h3>
+
+    <form action="{% url 'news:edit' post_slug=post.slug %}" method="POST">
+        {% csrf_token %}
+
+        {% for field in EditForm %}
+            <div class="{%if field.errors %}error{%endif%}">
+                {{field.label_tag}}{{ field }}
+            </div>
+            {% for error in field.errors %}
+                <small class="error">{{ error }}</small>
+            {% endfor %}
+        {% endfor %}
+
+        <input type="submit" class="button" value="Edit Post"/>
+    </form>
+
+
+    <form action="{% url 'news:delete' post_slug=post.slug %}" method ="POST">
+        {% csrf_token %}
+        <input type="submit" class="button" id= "delete" value="Delete Post" />
+    </form>
+
+{% endblock content %}

@@ -135,8 +135,47 @@ class Create_Post(View):
             return render(request, self.template, context)
 
 
+class Edit_Post(View):
+    template = "edit.html"
+
+    # here we get the slug id passed in with the url 
+    def get(self, request, post_slug=None):
+        # get the slug id from the object
+        post = Post.objects.get(slug=post_slug)
+        # get the form and populate it with the value that is already there, AKA what we want ot edit
+        form = PostForm(instance=post)
+        context = {
+            "post": post,
+            "EditForm": form,}
+        return render(request, self.template, context)
+
+    def post(self, request, post_slug=None):
+        # get the slug id from the object
+        post = Post.objects.get(slug=post_slug)
+        # this time we get the NEW, EDITED content from the form 
+        form = PostForm(data=request.POST, instance=post)
+
+        if form.is_valid():
+            # if the form is valid we save it to the db
+            form.save()
+            return redirect("news:index")
+        else:
+            context = {
+                "post": post,
+                "EditForm": form,}
+            # if it is not valid just send it back with the errors attached
+            return render(request, self.template, context)
 
 
+class Delete_Post(View):
+    # dont need a get just get the slug id and change the value for show
+    def post(self, request, post_slug=None):
+        
+        post = Post.objects.get(slug=post_slug)
+        # dont delte it just make the show field false so it wont show on index page
+        post.show = False
+        post.save()
+        return redirect('news:index')
 
 
 

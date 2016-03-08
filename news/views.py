@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required #fancy decorator
@@ -99,6 +99,53 @@ class User_Logout(View):
         logout(request)
         # Take the user back to the homepage.
         return redirect("news:index")
+
+
+class Create_Post(View):
+    template = "create.html"
+
+    def get(self, request):
+        form = PostForm()
+        # set the form and send it to the page 
+        context = {
+            "PostForm": form}
+        return render (request, self.template, context)
+
+    def post(self, request):
+        if not request.user.is_authenticated():
+            # is there is no user logged in they can not submit a post 
+            # this redirects them to a 403 html page with an error message
+            return HttpResponseForbidden(render (request, "403.html"))
+
+        form = PostForm(data=request.POST)
+        # if the form is valid hen we...
+        if form.is_valid():
+            # need to save the username the post is attached to
+            user = request.user
+            post = form.save(commit=False)
+            # save the user to this specific post, AKA add an FK
+            post.user = user 
+            post.save()
+            return redirect("news:index")
+
+        else:
+            context = {
+                "PostForm": form,}
+            # send the form back with errors
+            return render(request, self.template, context)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -18,8 +18,8 @@ class Post(models.Model):
     link = models.URLField(max_length=120, null = True, default = None)
     content = models.CharField(max_length=4000)
     slug = models.SlugField(max_length=40)
-    created_at = models.DateTimeField(editable=False)
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
     show = models.BooleanField(default=True)
     votes = models.IntegerField(default=0)
     user = models.ForeignKey(User) # adds a FK
@@ -29,7 +29,7 @@ class Comment(models.Model):
     link = models.URLField(max_length=120, null = True, default = None)
     content = models.CharField(max_length=4000)
     slug = models.SlugField(max_length=40)
-    created_at = models.DateTimeField(editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
     show = models.BooleanField(default=True)
     votes = models.IntegerField(default=0)
     user = models.ForeignKey(User) # adds a FK for user 
@@ -38,7 +38,7 @@ class Comment(models.Model):
 
     # this is a custom save method
     def save(self, *args, **kwargs):
-        # self.slug = slugify(self.title)
+        self.slug = slugify(self.title)
         self.updated_at = timezone.now()
         self.user = user
         if not self.id:

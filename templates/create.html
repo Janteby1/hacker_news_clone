@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form action="{% url 'news:create' %}" method="POST">
+        {% csrf_token %}
+
+            {% for field in PostForm %}
+                <div class="{%if field.errors %}error{%endif%}">
+                    {{field.label_tag}}{{ field }}
+                </div>
+                {% for error in field.errors %}
+                    <small class="error">{{ error }}</small>
+                {% endfor %}
+            {% endfor %}
+            
+        <input type="submit" class="button" value="Add Post"/>
+    </form>
+
+{% endblock content %}

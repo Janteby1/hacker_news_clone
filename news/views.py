@@ -79,7 +79,7 @@ class User_Login(View):
         if user: # meaning it is not None
             if user.is_active:
                 # If the account is valid and active, we can log the user in.
-                login(request, user)
+                login(request, user) 
                 # send them back to the index and show them as logged in there
                 return redirect("news:index")
             else:

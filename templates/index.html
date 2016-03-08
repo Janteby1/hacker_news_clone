@@ -2,14 +2,36 @@
 
 {% block content %}
 
-    <h2 id="welcome">Welcome Page!</h2>
+    <h2 id="welcome">Welcome!</h2>
 
     <h4>This is the index page</h4>
 
-<!--     <div id="add"><a href="/dates/add"> Add a Date Idea!</a></div>
 
-    <div id="search"><a href="/dates/search"> Search for a Date Idea!</a></div>
+    <div id="links"> 
+        <br>
+        <a href="register"> Register!</a>
+        <br>
+        <a href="login"> Login</a>
+            <div>{{ message }}</div>   
+        <br>
+        <a href="logout"> Logout</a>
+    </div>
 
+
+<!--     {% for post in posts %}
+        {% if post.show == True %}
+
+        <div class="post">
+            <a class="title" href="/news/edit/{{ post.slug }}"> <p class="title"> {{ post.title }} 
+            </p> </a>
+            {{ post.content|linebreaks }}
+            <p class="author"> Author: {{ post.user }} </p>
+        </div>
+
+            <p class="date">Create: {{ post.created_at }}  -  Update: {{ post.updated_at }}</p>
+        {% endif %}
+    {% endfor %}
  -->
-
 {% endblock content %}
+
+

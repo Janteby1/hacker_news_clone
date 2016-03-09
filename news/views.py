@@ -25,8 +25,10 @@ class Index(View):
                 'message': message,}
         # this line gets all the posts that we have in the db and orders them by most recent
         posts = Post.objects.all().order_by('-updated_at')
-        # put al the posts into a context dict
+        comments = Comment.objects.all().order_by('-created_at')
+        # put al the posts and commentss into a context dict
         context ["posts"] = posts
+        context ["comments"] = comments
         # send them all to the template
         return render(request, "index.html", context)
 
@@ -113,7 +115,7 @@ class Create_Post(View):
 
     def post(self, request):
         if not request.user.is_authenticated():
-            # is there is no user logged in they can not submit a post 
+            # if there is no user logged in they can not submit a post 
             # this redirects them to a 403 html page with an error message
             return HttpResponseForbidden(render (request, "403.html"))
 
@@ -144,10 +146,14 @@ class Edit_Post(View):
         post = Post.objects.get(slug=post_slug)
         # get the form and populate it with the value that is already there, AKA what we want ot edit
         form = PostForm(instance=post)
+        # send the comment form also
+        comment_form = CommentForm()
         context = {
             "post": post,
-            "EditForm": form,}
+            "EditForm": form,
+            "CommentForm": comment_form}
         return render(request, self.template, context)
+
 
     def post(self, request, post_slug=None):
         # get the slug id from the object
@@ -179,11 +185,44 @@ class Delete_Post(View):
 
 
 
+class Add_Comment(View):
+    template = "edit.html"
+
+    def get(self, request):
+        pass
+        # we already rendered the form in our edit class view
+
+    def post(self, request, post_slug=None):
+        if not request.user.is_authenticated():
+            # if there is no user logged in they can not submit a comment 
+            # this redirects them to a 403 html page with an error message
+            return HttpResponseForbidden(render (request, "403.html"))
+
+        form = CommentForm(data=request.POST)
+        # if the form is valid then we...
+        if form.is_valid():
+            # need to save the user and post id to this comment
+            user = request.user
+            post = Post.objects.get(slug=post_slug)
+            comment = form.save(commit=False)
+            # save the user and post to this specific comment, AKA add an FK
+            comment.user = user
+            comment.post = post
+            comment.save()
+            return redirect("news:index") 
+            # use ajax to show the comment
+
+        else:
+            context = {
+                "CommentForm": form,}
+            # send the form back with errors
+            return render(request, self.template, context)
 
 
 
+# Edit comment 
 
-
+# add user constraints 
 
 
 

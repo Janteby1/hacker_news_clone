@@ -13,4 +13,7 @@ urlpatterns = [
     # here we send the url to the views witht he slug id attached to it
     url(r'^edit/(?P<post_slug>[A-Za-z0-9\-\_]+)$', views.Edit_Post.as_view(), name="edit"),
     url(r'^delete/(?P<post_slug>[A-Za-z0-9\-\_]+)$', views.Delete_Post.as_view(), name='delete'),
+    
+    url(r'^comment/(?P<post_slug>[A-Za-z0-9\-\_]+)$', views.Add_Comment.as_view(), name='comment'),
 ]
+

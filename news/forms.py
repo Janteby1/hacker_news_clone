@@ -21,7 +21,7 @@ class PostForm(forms.ModelForm):
         ]
         widgets = {
             "content": Textarea(attrs={"cols": 60, "rows": 10}),
-            "slug": forms.HiddenInput()
+            # "slug": forms.HiddenInput()
         }
 
 class CommentForm(forms.ModelForm):

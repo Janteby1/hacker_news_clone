@@ -22,7 +22,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField()
     show = models.BooleanField(default=True)
     votes = models.IntegerField(default=0)
-    user = models.ForeignKey(User) # adds a FK
+    user = models.ForeignKey(User, default = 1) # adds a FK
 
     # this is a custom save method
     def save(self, *args, **kwargs):
@@ -46,11 +46,11 @@ class Comment(models.Model):
 
     # this is a custom save method
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        # self.slug = slugify(self.title)
         # self.user = user
         if not self.id:
             self.created_at = timezone.now()
-        super(Post, self).save(*args, **kwargs)
+        super(Comment, self).save(*args, **kwargs)
 
 
 

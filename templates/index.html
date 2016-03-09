@@ -6,7 +6,6 @@
 
     <h4>This is the index page</h4>
 
-
     <div id="links"> 
         <br>
         <a href="register"> Register!</a>
@@ -34,6 +33,19 @@
 
             <p class="date">Create: {{ post.created_at }}  -  Update: {{ post.updated_at }}</p>
         {% endif %}
+    {% endfor %}
+
+    
+    {% for comment in comments %}
+
+        <div class="comment">
+            </p> </a>
+            Comment: {{ comment.content|linebreaks }}
+           Link: {{ comment.link }} <br>
+           Post ID: {{ comment.post.slug }}
+            <p class="author"> Author: {{ comment.user }} </p>
+        </div>
+
     {% endfor %}
 
 {% endblock content %}

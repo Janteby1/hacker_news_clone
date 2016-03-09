@@ -25,4 +25,27 @@
         <input type="submit" class="button" id= "delete" value="Delete Post" />
     </form>
 
+    <br>
+    <p>Add Comment:</p>
+
+    <form action="{% url 'news:comment' post_slug=post.slug %}" method="POST">
+        {% csrf_token %}
+
+        {% for field in CommentForm %}
+            <div class="{%if field.errors %}error{%endif%}">
+                {{field.label_tag}}{{ field }}
+            </div>
+            {% for error in field.errors %}
+                <small class="error">{{ error }}</small>
+            {% endfor %}
+        {% endfor %}
+
+        <input type="submit" class="button" value="Comment on Post"/>
+    </form>
+
+
 {% endblock content %}
+
+
+
+

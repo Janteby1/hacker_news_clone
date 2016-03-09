@@ -35,6 +35,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    title = models.CharField(max_length=40, default = None)
     link = models.URLField(max_length=120, null = True, default = None)
     content = models.CharField(max_length=4000)
     slug = models.SlugField(max_length=40)
@@ -46,7 +47,7 @@ class Comment(models.Model):
 
     # this is a custom save method
     def save(self, *args, **kwargs):
-        # self.slug = slugify(self.title)
+        self.slug = slugify(self.title)
         # self.user = user
         if not self.id:
             self.created_at = timezone.now()

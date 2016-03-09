@@ -10,6 +10,9 @@ from .forms import UserForm, PostForm, CommentForm
 from .models import UserProfile, Post, Comment
 import pudb
 
+import json
+from django.http import JsonResponse
+
 
 # Create your views here.
 class Index(View):
@@ -198,9 +201,13 @@ class Add_Comment(View):
             # this redirects them to a 403 html page with an error message
             return HttpResponseForbidden(render (request, "403.html"))
 
-        form = CommentForm(data=request.POST)
-        # if the form is valid then we...
+        # get the jason object with the data
+        # value = json.loads(request.body.decode("utf-8")) 
+
+        form = CommentForm(request.POST)
+        # # if the form is valid then we...
         if form.is_valid():
+
             # need to save the user and post id to this comment
             user = request.user
             post = Post.objects.get(slug=post_slug)
@@ -209,8 +216,11 @@ class Add_Comment(View):
             comment.user = user
             comment.post = post
             comment.save()
-            return redirect("news:index") 
-            # use ajax to show the comment
+            # return redirect("news:index") 
+
+            message={
+                'comment': request.POST.get("content") }
+            return JsonResponse(message) # return a json object
 
         else:
             context = {
@@ -220,9 +230,55 @@ class Add_Comment(View):
 
 
 
-# Edit comment 
+# Edit / delete a comment 
+class Edit_Comment(View):
+    template = "edit_comment.html"
 
-# add user constraints 
+    # here we get the slug id passed in with the url 
+    def get(self, request, comment_slug=None):
+        # get the slug id from the object
+        comment = Comment.objects.get(slug=comment_slug)
+        # get the form and populate it with the value that is already there, AKA what we want ot edit
+        form = CommentForm(instance=post)
+        # send the comment form also
+        context = {
+            "post": post,
+            "CommentForm": comment_form}
+        return render(request, self.template, context)
+
+
+    def post(self, request, comment_slug=None):
+        # get the slug id from the object
+        comment = Comment.objects.get(slug=comment_slug)  
+        # this time we get the NEW, EDITED content from the form 
+        form = CommentForm(data=request.POST, instance=post)
+
+        if form.is_valid():
+            # if the form is valid we save it to the db
+            form.save()
+            return redirect("news:index")
+        else:
+            context = {
+                "post": post,
+                "CommentForm": form,}
+            # if it is not valid just send it back with the errors attached
+            return render(request, self.template, context)
+
+
+class Delete_Comment(View):
+    # dont need a get just get the slug id and change the value for show
+    def post(self, request, comment_slug=None):
+
+        comment = Comment.objects.get(slug=comment_slug)
+        # dont delte it just make the show field false so it wont show on index page
+        comment.show = False
+        comment.save()
+        return redirect('news:index')
+
+
+
+
+# add user constraints - only edit or delte something you created
 
 
 

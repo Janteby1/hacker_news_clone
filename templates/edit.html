@@ -25,10 +25,11 @@
         <input type="submit" class="button" id= "delete" value="Delete Post" />
     </form>
 
+    <div id="comment_div"> </div>
     <br>
     <p>Add Comment:</p>
 
-    <form action="{% url 'news:comment' post_slug=post.slug %}" method="POST">
+    <form action="{% url 'news:comment' post_slug=post.slug %}" method="POST" id="comment_form">
         {% csrf_token %}
 
         {% for field in CommentForm %}
@@ -39,10 +40,14 @@
                 <small class="error">{{ error }}</small>
             {% endfor %}
         {% endfor %}
+        
+        <div id="submit_comment_div"> </div>
+        <br>
+        <input type="submit" id ="comment" class="button" value="Comment on Post"/>
 
-        <input type="submit" class="button" value="Comment on Post"/>
     </form>
 
+<div id="post_slug_thing">{{ post.slug }} </div> 
 
 {% endblock content %}
 

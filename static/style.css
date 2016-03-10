@@ -12,7 +12,8 @@ body {
 }
 
 .post {
-	background-color: #D3D3D3;
+	background-color: #DCDCDC;
+	padding: 5px;
 }
 
 #links {
@@ -28,6 +29,8 @@ body {
 #create {
 	display: block;
 	margin: 15px;
+	margin-right: 180px;
+	margin-left: 180px;
 }
 
 .post {

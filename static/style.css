@@ -1,5 +1,14 @@
 #welcome {
 	color: green;
+	text-align: center;
+}
+
+body {
+	margin: 10px;
+}
+
+#base {
+	text-align: center;
 }
 
 .post {
@@ -9,3 +18,78 @@
 .comment {
 	background-color: #FF00FF;
 }
+
+#links {
+	margin-bottom: 25px;
+}
+
+#links a {
+	display: block;
+	float: left;
+	margin-right: 15px;
+}
+
+#create {
+	display: block;
+	margin: 15px;
+}
+
+.post {
+	border-radius: 50px;
+	padding: 15px;
+	padding-bottom: 30px;
+}
+
+a:hover {
+	color: red;
+}
+
+.button:hover {
+	background-color: red;
+}
+
+.button {
+	border-radius: 100px;
+}
+
+.link {
+	font-size: 15px;
+	font-style: italic;
+	display: block;
+	float: left;
+}
+
+.author {
+	font-size: 15px;
+	font-style: italic;
+	display: block;
+	float: right;
+
+}
+
+.date {
+	font-size: 12px;
+	font-style: italic;
+	display: block;
+	margin-left: 15px;
+}
+
+#comment_div {
+	color: red;
+	margin-left: 20px;
+}
+
+#submit_comment_div {
+	color: red;
+	margin-left: 10px;
+	font-style: italic;
+}
+
+.comment {
+	background-color: #FFE4B5;
+	margin-bottom: 10px;
+}
+
+
+
+

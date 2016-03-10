@@ -4,34 +4,31 @@
 
     <h2 id="welcome">Welcome!</h2>
 
-    <h4>This is the index page</h4>
-
     <div id="links"> 
-        <br>
         <a href="register"> Register!</a>
         <br>
         <a href="login"> Login</a>
             <div>{{ message }}</div>   
-        <br>
         <a href="logout"> Logout</a>
 
-        <div><a id="create" class="button" href="{% url 'news:create' %}"> Create New Post</a></div>
     </div>
+
+        <div><a id="create" class="button" href="{% url 'news:create' %}"> Create New Post</a></div>
 
 
     {% for post in posts %}
         {% if post.show == True %}
 
         <div class="post">
-            <a class="title" href="/news/edit/{{ post.slug }}"> <p class="title"> {{ post.title }} 
-            </p> </a>
+            <a class="title" href="/news/edit/{{ post.slug }}"> <div class="title"> {{ post.title }} 
+            </div> </a>
             {{ post.content|linebreaks }}
-<!--             slug -{{ post.slug }}  --> 
-           Link: {{ post.link }}
-            <p class="author"> Author: {{ post.user }} </p>
+           <div class="link"> Link: {{ post.link }} </div>
+            <div class="author"> Author: {{ post.user }} </div>
         </div>
 
-            <p class="date">Create: {{ post.created_at }}  -  Update: {{ post.updated_at }}</p>
+            <p class="date">Create: {{ post.created_at }} </p>
+
         {% endif %}
     {% endfor %}
 
@@ -40,13 +37,14 @@
         {% if comment.show == True %}
 
         <div class="comment">
-            <a href="/news/edit_comment/{{ comment.slug }}"> <p class="comment_id"> <p class="comment_title"> {{ comment.title }} 
-            </p> </a>
-            Comment: {{ comment.content|linebreaks }}
-           Link: {{ comment.link }} <br>
-           Post ID: {{ comment.post.slug }}
-           {{ comment.slug }}
-            <p class="author"> Author: {{ comment.user }} </p>
+            <a href="/news/edit_comment/{{ comment.slug }}"> <p class="comment_id"> <div class="comment_title"> {{ comment.title }} </div> </a>
+
+            <div class="comment"> <strong> Comment: </strong> {{ comment.content }} </div>
+
+            <div class="link"> Link: {{ comment.link }} </div>
+            <div class="author"> Author: {{ comment.user }} </div>
+            <div class="post_id">Post ID: {{ comment.post.slug }} </div>
+
         </div>
 
         {% endif %}

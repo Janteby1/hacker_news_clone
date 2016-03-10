@@ -1,0 +1,19 @@
+{% verbatim %}
+	
+	<script id="list" type="x-tmpl-mustache">
+		{{#comments}}
+
+            <div class="comment">
+                <a href="/news/edit_comment/{{ slug }}"> <p class="comment_id"> <div class="comment_title"> {{title}} </div> </a>
+
+                <div id="comment"> <strong> Comment: </strong> {{content}} </div>
+                <br>
+                <div class="link"> Link: {{link}} </div>
+            </div>
+            <br>
+
+       {{/comments}}
+
+	</script>
+
+{% endverbatim %}

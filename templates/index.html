@@ -17,21 +17,45 @@
 
 
     {% for post in posts %}
-        {% if post.show == True %}
 
         <div class="post">
             <a class="title" href="/news/edit/{{ post.slug }}"> <div class="title"> {{ post.title }} 
             </div> </a>
-            {{ post.content|linebreaks }}
+            <div class="post_content">{{ post.content }} </div>
            <div class="link"> Link: {{ post.link }} </div>
             <div class="author"> Author: {{ post.user }} </div>
         </div>
 
             <p class="date">Create: {{ post.created_at }} </p>
 
-        {% endif %}
 
-            {% for comment in comments %}
+
+            <form action="" class='comments_button'>
+                <input type="hidden" name= "post_id"value="{{post.id}}">
+                <input class="button" id="comment_button" type="submit" name='get_comments' value="Get Comments">
+            </form>
+
+
+                <div class="comment_div" id= "{{post.id}}"> </div>
+
+                {%include 'list_comments.html' %}
+
+    {% endfor %}
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+   <!--          {% for comment in comments %}
                 {% if comment.show == True %}
                     {% if comment.post.id == post.id %}
 
@@ -47,11 +71,5 @@
 
                     {% endif %}
                 {% endif %}
-            {% endfor %}
-
-    {% endfor %}
-
-
-{% endblock content %}
-
+            {% endfor %} -->
 

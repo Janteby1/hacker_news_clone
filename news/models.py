@@ -33,6 +33,18 @@ class Post(models.Model):
             self.created_at = timezone.now()
         super(Post, self).save(*args, **kwargs)
 
+    def to_json(self):
+        return {
+            "title": self.title,
+            "link": self.link,
+            "content": self.content,
+            "slug": self.slug,
+            "created_at": self.created_at, 
+            "show": self.show,
+            "votes": self.votes,
+            "user": self.user,
+        }
+
 
 class Comment(models.Model):
     title = models.CharField(max_length=40, default = None)
@@ -53,5 +65,16 @@ class Comment(models.Model):
             self.created_at = timezone.now()
         super(Comment, self).save(*args, **kwargs)
 
-
+    def to_json(self):
+        return {
+            "title": self.title,
+            "link": self.link,
+            "content": self.content,
+            "slug": self.slug,
+            "created_at": self.created_at, 
+            "show": self.show,
+            "votes": self.votes,
+            "user": self.user.id,
+            "post": self.post.id,
+        }
 

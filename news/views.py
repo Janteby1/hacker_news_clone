@@ -26,14 +26,24 @@ class Index(View):
             message = ("Hello, " + username)
             context = {
                 'message': message,}
+
+        if request.is_ajax():
+            pk=request.GET.get("post_id")
+            comments = Comment.objects.filter(post_id=pk,show=True).order_by('-created_at')
+            # put all the value sinto a list with a method called from the models
+            comments = [comment.to_json() for comment in comments]
+            # put all the commentss into a context dict
+            data = {
+                "comments": comments }
+            return JsonResponse(data) # return a json object to the ajax request
+
         # this line gets all the posts that we have in the db and orders them by most recent
-        posts = Post.objects.all().order_by('-updated_at')
-        comments = Comment.objects.all().order_by('-created_at')
-        # put al the posts and commentss into a context dict
+        posts = Post.objects.filter(show=True).order_by('-updated_at')
+        # put all the posts into a context dict
         context ["posts"] = posts
-        context ["comments"] = comments
         # send them all to the template
         return render(request, "index.html", context)
+
 
 
 class User_Register(View):
@@ -185,7 +195,6 @@ class Delete_Post(View):
         post.show = False
         post.save()
         return redirect('news:index')
-
 
 
 class Add_Comment(View):

@@ -37,6 +37,7 @@
 
     
     {% for comment in comments %}
+        {% if comment.show == True %}
 
         <div class="comment">
             <a href="/news/edit_comment/{{ comment.slug }}"> <p class="comment_id"> <p class="comment_title"> {{ comment.title }} 
@@ -48,6 +49,7 @@
             <p class="author"> Author: {{ comment.user }} </p>
         </div>
 
+        {% endif %}
     {% endfor %}
 
 {% endblock content %}

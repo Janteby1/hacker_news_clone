@@ -238,11 +238,11 @@ class Edit_Comment(View):
     def get(self, request, comment_slug=None):
         # get the slug id from the object
         comment = Comment.objects.get(slug=comment_slug)
-        # get the form and populate it with the value that is already there, AKA what we want ot edit
-        form = CommentForm(instance=post)
+        # get the form and populate it with the value that is already there, AKA what we want to edit
+        comment_form = CommentForm(instance=comment)
         # send the comment form also
         context = {
-            "post": post,
+            "comment": comment,
             "CommentForm": comment_form}
         return render(request, self.template, context)
 
@@ -251,16 +251,16 @@ class Edit_Comment(View):
         # get the slug id from the object
         comment = Comment.objects.get(slug=comment_slug)  
         # this time we get the NEW, EDITED content from the form 
-        form = CommentForm(data=request.POST, instance=post)
+        comment_form = CommentForm(data=request.POST, instance=comment)
 
-        if form.is_valid():
+        if comment_form.is_valid():
             # if the form is valid we save it to the db
-            form.save()
+            comment_form.save()
             return redirect("news:index")
         else:
             context = {
-                "post": post,
-                "CommentForm": form,}
+                "comment": comment,
+                "CommentForm": comment_form,}
             # if it is not valid just send it back with the errors attached
             return render(request, self.template, context)
 

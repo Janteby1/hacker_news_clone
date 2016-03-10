@@ -2,12 +2,12 @@
 
 {% block content %}
 
-    <h3>Edit Post:</h3>
+    <h3>Edit Comment:</h3>
 
     <form action="{% url 'news:edit_comment' comment_slug=comment.slug %}" method="POST">
         {% csrf_token %}
 
-        {% for field in EditForm %}
+        {% for field in CommentForm %}
             <div class="{%if field.errors %}error{%endif%}">
                 {{field.label_tag}}{{ field }}
             </div>

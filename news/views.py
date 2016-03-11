@@ -14,23 +14,32 @@ import json
 from django.http import JsonResponse
 
 
+"""
+Still to do:
+add user constraints - only edit or delte something you created
+better error messaging 
+"""
+
 # Create your views here.
 class Index(View):
     def get(self, request):
-        # create blank conext incase someone isnt signed in already 
+        # create blank conext incase someone isnt signed in already, they can still see posts 
         context = {}
         # check to see if someone is already logged in
         if request.user.is_authenticated(): 
             # get their username  
             username = request.user.username
             message = ("Hello, " + username)
+            # send them a greating so they know they are signed in 
             context = {
                 'message': message,}
 
+        # if we just want an ajax request we dont need a seperate class 
         if request.is_ajax():
             pk=request.GET.get("post_id")
+            # do all the logic and filtering here, only get the comments that are shown and have the right id 
             comments = Comment.objects.filter(post_id=pk,show=True).order_by('-created_at')
-            # put all the value sinto a list with a method called from the models
+            # put all the values into a json dictionary with a method called from the models
             comments = [comment.to_json() for comment in comments]
             # put all the commentss into a context dict
             data = {
@@ -43,7 +52,6 @@ class Index(View):
         context ["posts"] = posts
         # send them all to the template
         return render(request, "index.html", context)
-
 
 
 class User_Register(View):
@@ -239,7 +247,6 @@ class Add_Comment(View):
 
 
 
-# Edit / delete a comment 
 class Edit_Comment(View):
     template = "edit_comment.html"
 
@@ -287,7 +294,6 @@ class Delete_Comment(View):
 
 
 
-# add user constraints - only edit or delte something you created
 
 
 

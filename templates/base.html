@@ -9,8 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src= "    https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js
-        "></script>
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
 	<script src="{% static 'django_ajax.js'%}"></script>
 	<script src="{% static 'main.js'%}"></script>
 </head>
@@ -20,8 +19,10 @@
 
     <h1 id="base">Hacker News v2.0</h1>
 
-    <div class=container>
+    <div class="container">
         {% block content %}
+
+        <!-- all content from other HTML pages go here -->
 
         {% endblock content %}
     </div>

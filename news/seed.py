@@ -63,7 +63,10 @@ with open("news/seed.txt", encoding='latin-1') as seed_file:
 #         text = fake_text
 
 #         # seed the db with the test you just created
-#         post = Post(title=fake_text, text=text)
+#         post = Post(
+#           title=fake_text, 
+#           text=text
+#           )
 #         post.save()
 
 

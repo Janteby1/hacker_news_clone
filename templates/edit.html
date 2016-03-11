@@ -7,10 +7,13 @@
     <form action="{% url 'news:edit' post_slug=post.slug %}" method="POST">
         {% csrf_token %}
 
+        <!-- this makes the field red and shows there is an error -->
         {% for field in EditForm %}
             <div class="{%if field.errors %}error{%endif%}">
                 {{field.label_tag}}{{ field }}
             </div>
+            
+            <!-- this prints out what the actual error is in red -->
             {% for error in field.errors %}
                 <small class="error">{{ error }}</small>
             {% endfor %}
@@ -20,10 +23,13 @@
     </form>
 
 
+
     <form action="{% url 'news:delete' post_slug=post.slug %}" method ="POST">
         {% csrf_token %}
         <input type="submit" class="button" id= "delete" value="Delete Post" />
     </form>
+
+
 
     <div id="comment_div"> </div>
     <br>
@@ -32,23 +38,29 @@
     <form action="{% url 'news:comment' post_slug=post.slug %}" method="POST" id="comment_form">
         {% csrf_token %}
 
+        <!-- this makes the field red and shows there is an error -->
         {% for field in CommentForm %}
             <div class="{%if field.errors %}error{%endif%}">
                 {{field.label_tag}}{{ field }}
             </div>
+            
+            <!-- this prints out what the actual error is in red -->
             {% for error in field.errors %}
                 <small class="error">{{ error }}</small>
             {% endfor %}
         {% endfor %}
-        
+
         <div id="submit_comment_div"> </div>
         <br>
+        
         <input type="submit" id ="comment" class="button" value="Comment on Post"/>
 
     </form>
+
     
     <a href="/news"> Back Home</a>
     <br><br><br>
+
 
 <div id="post_slug_thing">{{ post.slug }} </div> 
 

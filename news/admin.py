@@ -3,11 +3,8 @@ from .models import Post, Comment
 
 class AuthorAdmin(admin.ModelAdmin):
     pass
+
+# add the models you want in your admin backend
 admin.site.register(Post)
 admin.site.register(Comment)
 
-
-'''
-U: Janteby1
-P: this is cool
-'''

@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "news"
+    "news" #need to always define and add your apps here
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York' # alternative default syntax is "UTC"
 
 USE_I18N = True
 
@@ -120,8 +120,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-# can have an outside global static file when we set this up
+
+# need to add this ysntax so it knows to look for a global static file 
 STATIC_ROOT = "staticfiles"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
+

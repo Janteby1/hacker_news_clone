@@ -9,7 +9,7 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	# here we can add aditional attributes 
 	'''
-	Includes these attributes:
+	Included in the django user model are these attributes:
 	Username, Password, Email address, firstname, surname
 	'''
 
@@ -33,6 +33,7 @@ class Post(models.Model):
             self.created_at = timezone.now()
         super(Post, self).save(*args, **kwargs)
 
+    # this create a dictionary from an object to use with ajax
     def to_json(self):
         return {
             "title": self.title,
@@ -55,7 +56,7 @@ class Comment(models.Model):
     show = models.BooleanField(default=True)
     votes = models.IntegerField(default=0)
     user = models.ForeignKey(User) # adds a FK for user 
-    post = models.ForeignKey(Post) # adds a FK for th epost it is attached to
+    post = models.ForeignKey(Post) # adds a FK for the post it belongs to
 
     # this is a custom save method
     def save(self, *args, **kwargs):
@@ -65,6 +66,7 @@ class Comment(models.Model):
             self.created_at = timezone.now()
         super(Comment, self).save(*args, **kwargs)
 
+    # this create a dictionary from an object to use with ajax
     def to_json(self):
         return {
             "title": self.title,
